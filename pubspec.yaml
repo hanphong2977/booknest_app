@@ -61,4 +61,5 @@ flutter:
     - assets/images/start_page_img_1.png
     - assets/images/start_page_img_2.png
     - assets/images/start_page_img_3.png
-
+    - assets/images/login_page_img.png
+    - assets/images/forgot_password_page_img.png

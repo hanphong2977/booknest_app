@@ -1,3 +1,4 @@
+import 'package:booknest_app/login_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -101,7 +102,7 @@ class _StartPageState extends State<StartPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               _images.length,
-                  (index) => AnimatedContainer(
+              (index) => AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 margin: EdgeInsets.symmetric(horizontal: 4),
                 width: _currentPage == index ? 12 : 8,
@@ -123,8 +124,11 @@ class _StartPageState extends State<StartPage> {
               ),
             ),
             onPressed: () {
-              // Thêm hành động khi nhấn nút Start
-              print('Start button pressed!');
+              // Điều hướng đến LoginPage khi bấm nút
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
             },
             child: Text(
               'Start',

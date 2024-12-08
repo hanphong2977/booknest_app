@@ -1,5 +1,4 @@
-import 'package:booknest_app/login_page.dart';
-import 'package:booknest_app/start_page.dart';
+import 'package:booknest_app/view_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: StartPage(),
+      home: ViewPage(),
     );
   }
 }

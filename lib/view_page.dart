@@ -1,4 +1,5 @@
 import 'package:booknest_app/home_page.dart';
+import 'package:booknest_app/user_profile_page.dart';
 import 'package:flutter/material.dart';
 
 class ViewPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _ViewPage extends State<ViewPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const Center(child: Text("Bookmark Page")), // Placeholder cho trang Bookmark
-    const Center(child: Text("Profile Page")),  // Placeholder cho trang Profile
+    ProfileApp(),
   ];
 
   void _onItemTapped(int index) {

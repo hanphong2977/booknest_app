@@ -1,43 +1,93 @@
+import 'package:booknest_app/login_page.dart';
 import 'package:flutter/material.dart';
 
-
-class ProfileApp extends StatefulWidget {
-  @override
-  State<ProfileApp> createState() => _ProfilePage();
+void main() {
+  runApp(ProfileApp());
 }
 
-class _ProfilePage extends State<ProfileApp> {
+class ProfileApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ProfilePage(),
+    );
+  }
+}
+
+class ProfilePage extends StatefulWidget {
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
         backgroundColor: Colors.blueAccent,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Picture
-            Center(
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage('assets/profile_pic.jpg'), // Thêm ảnh vào assets
+            // Header
+            Container(
+              width: double.infinity,
+              color: Colors.blueAccent,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/profile_pic.jpg'),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "John Doe",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "johndoe@example.com",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                ],
               ),
             ),
             SizedBox(height: 20),
-            // Name
-            ProfileField(label: 'Name', value: 'Võ Tuấn Kiệt'),
-            SizedBox(height: 10),
-            // Date of Birth
-            ProfileField(label: 'Date of Birth', value: '2003-01-01'),
-            SizedBox(height: 10),
-            // Email
-            ProfileField(label: 'Email', value: 'keitov123@gmail.com'),
-            SizedBox(height: 10),
-            // Address
-            ProfileField(label: 'Address', value: '123 hochiminh'),
+            // Profile Details
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: [
+                  ProfileDetailCard(
+                    icon: Icons.calendar_today,
+                    title: 'Date of Birth',
+                    value: '1990-01-01',
+                  ),
+                  ProfileDetailCard(
+                    icon: Icons.home,
+                    title: 'Address',
+                    value: '123 Flutter Lane, Tech City',
+                  ),
+                  ProfileDetailCard(
+                    icon: Icons.phone,
+                    title: 'Phone',
+                    value: '+123 456 7890',
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 20),
             // Buttons
             Row(
@@ -45,28 +95,38 @@ class _ProfilePage extends State<ProfileApp> {
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    // Hành động khi bấm Edit Profile
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Edit Profile clicked!'),
-                    ));
+                    // Không cần chức năng
                   },
                   icon: Icon(Icons.edit),
                   label: Text('Edit Profile'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
-                    // Hành động khi bấm Logout
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Logged out!'),
-                    ));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
                   },
                   icon: Icon(Icons.logout),
                   label: Text('Logout'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                 ),
               ],
-            )
+            ),
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -74,27 +134,24 @@ class _ProfilePage extends State<ProfileApp> {
   }
 }
 
-class ProfileField extends StatelessWidget {
-  final String label;
+class ProfileDetailCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
   final String value;
 
-  ProfileField({required this.label, required this.value});
+  ProfileDetailCard({required this.icon, required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          '$label: ',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 16),
-          ),
-        ),
-      ],
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: ListTile(
+        leading: Icon(icon, color: Colors.blueAccent),
+        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(value, style: TextStyle(color: Colors.grey[700])),
+      ),
     );
   }
 }

@@ -3,11 +3,13 @@ import 'package:booknest_app/register_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPage();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPage extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false; // Biến trạng thái
@@ -15,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -24,16 +26,16 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Hình ảnh phía trên cùng
               Image.asset(
                 'assets/images/login_page_img.png',
                 height: 300,
                 fit: BoxFit.cover,
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               // Tiêu đề chào mừng
-              Text(
+              const Text(
                 'Welcome to BookNest',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -41,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               // Email input
               TextField(
                 controller: _emailController,
@@ -53,18 +55,18 @@ class _LoginPageState extends State<LoginPage> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
                     // Bo góc khi không được chọn
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
                     // Bo góc khi được chọn
-                    borderSide: BorderSide(color: Color(0xFF60A5FA)),
+                    borderSide: const BorderSide(color: Color(0xFF60A5FA)),
                   ),
-                  prefixIcon: Icon(Icons.email),
+                  prefixIcon: const Icon(Icons.email),
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Password input
               TextField(
                 controller: _passwordController,
@@ -75,13 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Color(0xFF60A5FA)),
+                    borderSide: const BorderSide(color: Color(0xFF60A5FA)),
                   ),
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isPasswordVisible
@@ -99,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText:
                     !_isPasswordVisible, // Hiện/ẩn mật khẩu dựa vào trạng thái
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Align(
@@ -109,10 +111,10 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ForgotPasswordPage()),
+                          builder: (context) => const ForgotPasswordPage()),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Forgot Password',
                     style: TextStyle(
                       color: Colors.blue,
@@ -121,34 +123,33 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               // Nút đăng nhập
               ElevatedButton(
                 onPressed: () {
-                  print('Email: ${_emailController.text}');
-                  print('Password: ${_passwordController.text}');
+                  // login đăng nhập
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF60A5FA),
+                  backgroundColor: const Color(0xFF60A5FA),
                   foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Đăng ký
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account? "),
+                  const Text("Don't have an account? "),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => RegisterPage()),
+                        MaterialPageRoute(builder: (context) => const RegisterPage()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Register',
                       style: TextStyle(
                         color: Colors.blue,

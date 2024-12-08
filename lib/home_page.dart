@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePage();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Trang chủ"),
+        title: const Text("Trang chủ"),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 18,
@@ -22,7 +24,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications, color: Colors.black),
+            icon: const Icon(Icons.notifications, color: Colors.black),
           ),
         ],
       ),
@@ -37,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                   border: Border.all(color: Colors.grey.shade300),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
                     buildInputField(Icons.location_on, "Địa điểm"),
@@ -50,43 +52,43 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Nút tìm kiếm
               Row(
                 children: [
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        print("Nút tìm kiếm đã nhấn");
+                        // sử lý login nút tìm kiếm
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF60A5FA), // Màu 60A5FA
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: const Color(0xFF60A5FA), // Màu 60A5FA
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: Text(
+                      child: const Text(
                         "Tìm kiếm",
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(0xFF60A5FA), // Màu 60A5FA
+                      color: const Color(0xFF60A5FA), // Màu 60A5FA
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    padding: EdgeInsets.all(12),
-                    child: Icon(Icons.location_on, color: Colors.white),
+                    padding: const EdgeInsets.all(12),
+                    child: const Icon(Icons.location_on, color: Colors.white),
                   ),
                 ],
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               // Cards for hotels without Slider
-              Container(
+              SizedBox(
                 height: 500.0,
                 child: ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(), // Disable scrolling
+                  physics: const NeverScrollableScrollPhysics(), // Disable scrolling
                   itemCount: 5, // Số lượng khách sạn
                   itemBuilder: (context, index) {
                     return Card(
@@ -94,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       elevation: 6, // Tăng độ sâu của shadow cho card
-                      margin: EdgeInsets.only(bottom: 16),
+                      margin: const EdgeInsets.only(bottom: 16),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -109,18 +111,18 @@ class _HomePageState extends State<HomePage> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   'Tên khách sạn ${index + 1}', // Tên khách sạn
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),
                                 ),
-                                Row(
+                                const Row(
                                   children: [
                                     Icon(Icons.star,
                                         color: Colors.amber, size: 20),
@@ -130,8 +132,8 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 4),
-                            Row(
+                            const SizedBox(height: 4),
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
@@ -177,12 +179,12 @@ class _HomePageState extends State<HomePage> {
   Widget buildInputField(IconData icon, String hint) {
     return Row(
       children: [
-        Icon(icon, color: Color(0xFF60A5FA)), // Màu icon 60A5FA
-        SizedBox(width: 12),
+        Icon(icon, color: const Color(0xFF60A5FA)), // Màu icon 60A5FA
+        const SizedBox(width: 12),
         Expanded(
           child: Text(
             hint,
-            style: TextStyle(color: Colors.grey, fontSize: 16),
+            style: const TextStyle(color: Colors.grey, fontSize: 16),
           ),
         ),
       ],

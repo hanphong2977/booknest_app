@@ -2,6 +2,8 @@ import 'package:booknest_app/home_page.dart';
 import 'package:flutter/material.dart';
 
 class ViewPage extends StatefulWidget {
+  const ViewPage({super.key});
+
   @override
   State<ViewPage> createState() => _ViewPage();
 }
@@ -10,9 +12,9 @@ class _ViewPage extends State<ViewPage> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    Center(child: Text("Bookmark Page")), // Placeholder cho trang Bookmark
-    Center(child: Text("Profile Page")),  // Placeholder cho trang Profile
+    const HomePage(),
+    const Center(child: Text("Bookmark Page")), // Placeholder cho trang Bookmark
+    const Center(child: Text("Profile Page")),  // Placeholder cho trang Profile
   ];
 
   void _onItemTapped(int index) {
@@ -30,7 +32,7 @@ class _ViewPage extends State<ViewPage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home), // Không chỉ định màu cố định ở đây
               label: "",
@@ -45,7 +47,7 @@ class _ViewPage extends State<ViewPage> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Color(0xFF60A5FA), // Màu khi được chọn
+          selectedItemColor: const Color(0xFF60A5FA), // Màu khi được chọn
           unselectedItemColor: Colors.grey, // Màu khi không được chọn
           onTap: _onItemTapped,
         ),

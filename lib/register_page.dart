@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  State<RegisterPage> createState() => _RegisterPage();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterPage extends State<RegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -17,20 +19,20 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: const Text('Register'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Image.asset(
               'assets/images/register_page_img.png',
               height: 250,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             // Trường Username
             TextField(
               controller: _usernameController,
@@ -42,16 +44,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
                   // Bo góc khi không chọn
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderSide: const BorderSide(color: Colors.grey),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0), // Bo góc khi chọn
-                  borderSide: BorderSide(color: Color(0xFF60A5FA)),
+                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
                 ),
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: const Icon(Icons.person),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Trường Phone
             TextField(
               controller: _phoneController,
@@ -62,17 +64,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderSide: const BorderSide(color: Colors.grey),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(color: Color(0xFF60A5FA)),
+                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
                 ),
-                prefixIcon: Icon(Icons.phone),
+                prefixIcon: const Icon(Icons.phone),
               ),
               keyboardType: TextInputType.phone,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Trường Email
             TextField(
               controller: _emailController,
@@ -83,17 +85,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderSide: const BorderSide(color: Colors.grey),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(color: Color(0xFF60A5FA)),
+                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
                 ),
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: const Icon(Icons.email),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Trường Address
             TextField(
               controller: _addressController,
@@ -104,16 +106,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderSide: const BorderSide(color: Colors.grey),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(color: Color(0xFF60A5FA)),
+                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
                 ),
-                prefixIcon: Icon(Icons.home),
+                prefixIcon: const Icon(Icons.home),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Trường Password
             TextField(
               controller: _passwordController,
@@ -124,13 +126,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderSide: const BorderSide(color: Colors.grey),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: BorderSide(color: Color(0xFF60A5FA)),
+                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
                 ),
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: const Icon(Icons.lock),
                 suffixIcon: IconButton(
                   icon: Icon(
                     _isPasswordVisible
@@ -147,34 +149,30 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               obscureText: !_isPasswordVisible, // Hiện/ẩn mật khẩu
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             // Nút Register
             ElevatedButton(
               onPressed: () {
-                print('Username: ${_usernameController.text}');
-                print('Phone: ${_phoneController.text}');
-                print('Email: ${_emailController.text}');
-                print('Address: ${_addressController.text}');
-                print('Password: ${_passwordController.text}');
+              //   sử lý logic đăng ký
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF60A5FA),
+                backgroundColor: const Color(0xFF60A5FA),
                 foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
               ),
-              child: Text('Register', style: TextStyle(fontSize: 16)),
+              child: const Text('Register', style: TextStyle(fontSize: 16)),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Dòng Sign in
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Do you have an account? "),
+                const Text("Do you have an account? "),
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
+                  child: const Text(
                     'Sign in',
                     style: TextStyle(
                       color: Colors.blue,

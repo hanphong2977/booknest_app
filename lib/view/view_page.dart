@@ -1,5 +1,5 @@
-import 'package:booknest_app/home_page.dart';
-import 'package:booknest_app/user_profile_page.dart';
+import 'package:booknest_app/view/home_page.dart';
+import 'package:booknest_app/view/user_profile_page.dart';
 import 'package:flutter/material.dart';
 
 class ViewPage extends StatefulWidget {

@@ -1,5 +1,5 @@
-import 'package:booknest_app/forgot_password_page.dart';
-import 'package:booknest_app/register_page.dart';
+import 'package:booknest_app/view/forgot_password_page.dart';
+import 'package:booknest_app/view/register_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {

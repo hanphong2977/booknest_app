@@ -1,4 +1,4 @@
-import 'package:booknest_app/register_page.dart';
+import 'package:booknest_app/view/register_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

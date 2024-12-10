@@ -25,9 +25,15 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Tài Khoản'),
         backgroundColor: Colors.blueAccent,
         elevation: 0,
+        centerTitle: true,
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -36,12 +42,12 @@ class _ProfilePageState extends State<ProfilePage> {
             Container(
               width: double.infinity,
               color: Colors.blueAccent,
-              child: Column(
+              child: const Column(
                 children: [
                   SizedBox(height: 20),
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('assets/profile_pic.jpg'),
+                    backgroundImage: AssetImage('assets/images/avatar_male_image.png'),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -64,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Profile Details
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -88,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -97,11 +103,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () {
                     // Không cần chức năng
                   },
-                  icon: Icon(Icons.edit),
-                  label: Text('Edit Profile'),
+                  icon: const Icon(Icons.edit,color: Colors.white,),
+                  label: const Text('Edit Profile',style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -111,14 +117,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
                     );
                   },
-                  icon: Icon(Icons.logout),
-                  label: Text('Logout'),
+                  icon: const Icon(Icons.logout,color: Colors.white,),
+                  label: const Text('Logout',style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -126,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -139,17 +145,17 @@ class ProfileDetailCard extends StatelessWidget {
   final String title;
   final String value;
 
-  ProfileDetailCard({required this.icon, required this.title, required this.value});
+  const ProfileDetailCard({super.key, required this.icon, required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
         leading: Icon(icon, color: Colors.blueAccent),
-        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(value, style: TextStyle(color: Colors.grey[700])),
       ),
     );

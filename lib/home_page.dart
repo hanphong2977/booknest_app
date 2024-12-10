@@ -1,3 +1,4 @@
+import 'package:booknest_app/register_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _HomePage extends State<HomePage> {
         titleTextStyle: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
-          fontSize: 18,
+          fontSize: 20,
         ),
         actions: [
           IconButton(
@@ -59,10 +60,10 @@ class _HomePage extends State<HomePage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        // sử lý login nút tìm kiếm
+                        // Xử lý logic nút tìm kiếm
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF60A5FA), // Màu 60A5FA
+                        backgroundColor: const Color(0xFF60A5FA),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: const Text(
@@ -74,7 +75,7 @@ class _HomePage extends State<HomePage> {
                   const SizedBox(width: 8),
                   Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFF60A5FA), // Màu 60A5FA
+                      color: const Color(0xFF60A5FA),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.all(12),
@@ -83,92 +84,196 @@ class _HomePage extends State<HomePage> {
                 ],
               ),
               const SizedBox(height: 24),
-              // Cards for hotels without Slider
-              SizedBox(
-                height: 500.0,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(), // Disable scrolling
-                  itemCount: 5, // Số lượng khách sạn
-                  itemBuilder: (context, index) {
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Top Hotels',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RegisterPage()),
+                      );
+                    },
+                    child: const Text(
+                      'View All',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
                       ),
-                      elevation: 6, // Tăng độ sâu của shadow cho card
-                      margin: const EdgeInsets.only(bottom: 16),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                "https://via.placeholder.com/300",
-                                width: double.infinity,
-                                height: 150, // Giảm chiều cao của hình ảnh bên trong card
-                                fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              // Horizontal ListView for cards
+              SizedBox(
+                height: 200.0,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 250,
+                      margin: const EdgeInsets.only(right: 16),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.network(
+                                  "https://images.pexels.com/photos/29643684/pexels-photo-29643684/free-photo-of-elegant-hotel-imperial-architecture-in-mexico.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                                  width: double.infinity,
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Tên khách sạn ${index + 1}', // Tên khách sạn
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Tên khách sạn ${index + 1}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
                                 ),
-                                const Row(
-                                  children: [
-                                    Icon(Icons.star,
-                                        color: Colors.amber, size: 20),
-                                    SizedBox(width: 4),
-                                    Text(' 4.5'), // Số sao
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 4),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '\$100 một đêm', // Giá tiền
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.lock_open, // Tình trạng hoạt động
-                                      color: Colors.green,
-                                      size: 20,
+                              ),
+                              const SizedBox(height: 4),
+                              const Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '\$100/đêm',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 14,
                                     ),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      'Mở cửa', // Tình trạng hoạt động
-                                      style: TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.star,
+                                          color: Colors.amber, size: 20),
+                                      SizedBox(width: 4),
+                                      Text('4.5'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
                   },
                 ),
               ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Featured Hotels',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RegisterPage()),
+                      );
+                    },
+                    child: const Text(
+                      'View All',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              // Vertical ListView for featured hotels
+              ListView.builder(
+                shrinkWrap: true, // Tạo kích thước vừa đủ
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 16,
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start, // Căn nội dung về trên bên trái
+                        children: [
+                          // Hình ảnh khách sạn
+                          Image.network(
+                            'https://images.pexels.com/photos/12770803/pexels-photo-12770803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                            width: 120,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(width: 16),
+                          // Thông tin khách sạn
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start, // Căn nội dung về bên trái
+                              children: [
+                                // Tiêu đề khách sạn
+                                Text(
+                                  'Tên Khách Sạn ${index + 1}',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                // Thông tin giá và đánh giá
+                                const Row(
+                                  children: [
+                                    Text(
+                                      '\$100/đêm',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    SizedBox(width: 16), // Khoảng cách giữa giá và đánh giá
+                                    Row(
+                                      children: [
+                                        Icon(Icons.star, color: Colors.amber, size: 20),
+                                        SizedBox(width: 4),
+                                        Text('4.5'),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),
@@ -179,7 +284,7 @@ class _HomePage extends State<HomePage> {
   Widget buildInputField(IconData icon, String hint) {
     return Row(
       children: [
-        Icon(icon, color: const Color(0xFF60A5FA)), // Màu icon 60A5FA
+        Icon(icon, color: const Color(0xFF60A5FA)),
         const SizedBox(width: 12),
         Expanded(
           child: Text(

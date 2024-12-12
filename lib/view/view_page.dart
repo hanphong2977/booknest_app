@@ -15,7 +15,7 @@ class _ViewPage extends State<ViewPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const Center(child: Text("Bookmark Page")), // Placeholder cho trang Bookmark
-    ProfileApp(),
+    const ProfileApp(),
   ];
 
   void _onItemTapped(int index) {

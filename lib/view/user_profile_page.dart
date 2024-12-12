@@ -1,14 +1,12 @@
 import 'package:booknest_app/view/login_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(ProfileApp());
-}
-
 class ProfileApp extends StatelessWidget {
+  const ProfileApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ProfilePage(),
     );
@@ -16,6 +14,8 @@ class ProfileApp extends StatelessWidget {
 }
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }

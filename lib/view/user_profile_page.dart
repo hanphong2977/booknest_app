@@ -1,4 +1,5 @@
 import 'package:booknest_app/view/login_page.dart';
+import 'package:booknest_app/view/user_profile_page_helps_supports.dart';
 import 'package:booknest_app/view/user_profile_page_infomation.dart';
 import 'package:flutter/material.dart';
 
@@ -107,15 +108,23 @@ class _ProfilePageState extends State<ProfilePage> {
                   ProfileDetailCard(
                     title: 'Lịch Sử Đặt Phòng',
                   ),
-                  ProfileDetailCard(
-                    title: 'Giúp Đỡ & Câu Hỏi',
-                  ),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LoginPage()),
+                            builder: (context) => HelpSupportPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Giúp Đỡ & Câu Hỏi',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     },
                     child: ProfileDetailCard(

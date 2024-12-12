@@ -1,9 +1,6 @@
 import 'package:booknest_app/view/login_page.dart';
+import 'package:booknest_app/view/user_profile_page_infomation.dart';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(ProfileApp());
-}
 
 class ProfileApp extends StatelessWidget {
   @override
@@ -25,8 +22,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tài Khoản'),
-        backgroundColor: Colors.blueAccent,
+        //title: const Text('Profile'),
+        backgroundColor: Color(0xFF60A5FA),
         elevation: 0,
         centerTitle: true,
         titleTextStyle: const TextStyle(
@@ -41,13 +38,29 @@ class _ProfilePageState extends State<ProfilePage> {
             // Header
             Container(
               width: double.infinity,
-              color: Colors.blueAccent,
-              child: const Column(
+              color: Color(0xFF60A5FA),
+              child: Column(
                 children: [
                   SizedBox(height: 20),
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('assets/images/avatar_male_image.png'),
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/images/avatar_male_image.png',
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Image.asset(
+                            'assets/images/avatar_image.png',
+                            width: 200,
+                            height: 200,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -66,72 +79,55 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Colors.white70,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             // Profile Details
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Column(
                 children: [
-                  ProfileDetailCard(
-                    icon: Icons.calendar_today,
-                    title: 'Date of Birth',
-                    value: '1990-01-01',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfilePageInformation()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Thông Tin Cá Nhân',
+                    ),
                   ),
                   ProfileDetailCard(
-                    icon: Icons.home,
-                    title: 'Address',
-                    value: '123 Flutter Lane, Tech City',
+                    title: 'Thánh Toán & Hoàn Tiền',
                   ),
                   ProfileDetailCard(
-                    icon: Icons.phone,
-                    title: 'Phone',
-                    value: '+123 456 7890',
+                    title: 'Lịch Sử Đặt Phòng',
+                  ),
+                  ProfileDetailCard(
+                    title: 'Giúp Đỡ & Câu Hỏi',
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoginPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Đăng Xuất',
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             // Buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Không cần chức năng
-                  },
-                  icon: const Icon(Icons.edit,color: Colors.white,),
-                  label: const Text('Edit Profile',style: TextStyle(color: Colors.white),),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
-                    );
-                  },
-                  icon: const Icon(Icons.logout,color: Colors.white,),
-                  label: const Text('Logout',style: TextStyle(color: Colors.white),),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+
             const SizedBox(height: 20),
           ],
         ),
@@ -141,22 +137,34 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 class ProfileDetailCard extends StatelessWidget {
-  final IconData icon;
   final String title;
-  final String value;
 
-  const ProfileDetailCard({super.key, required this.icon, required this.title, required this.value});
+  const ProfileDetailCard({
+    super.key,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey, // Màu gạch dưới
+            width: 1.0, // Độ dày gạch dưới
+          ),
+        ),
+      ),
       child: ListTile(
-        leading: Icon(icon, color: Colors.blueAccent),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(value, style: TextStyle(color: Colors.grey[700])),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }

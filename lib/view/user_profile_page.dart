@@ -1,4 +1,6 @@
 import 'package:booknest_app/view/login_page.dart';
+import 'package:booknest_app/view/payment_checkout_page.dart';
+import 'package:booknest_app/view/review_page.dart';
 import 'package:booknest_app/view/user_profile_page_helps_supports.dart';
 import 'package:booknest_app/view/user_profile_page_infomation.dart';
 import 'package:flutter/material.dart';
@@ -102,8 +104,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: 'Thông Tin Cá Nhân',
                     ),
                   ),
-                  ProfileDetailCard(
-                    title: 'Thánh Toán & Hoàn Tiền',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentCheckoutPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Thanh Toán & Hoàn Tiền',
+                    ),
                   ),
                   ProfileDetailCard(
                     title: 'Lịch Sử Đặt Phòng',
@@ -129,6 +140,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                     child: ProfileDetailCard(
                       title: 'Đăng Xuất',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ReviewPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Tạm thời bỏ Review ở đây nhá',
                     ),
                   ),
                 ],

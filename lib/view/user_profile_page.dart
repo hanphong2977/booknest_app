@@ -1,6 +1,7 @@
 import 'package:booknest_app/view/login_page.dart';
 import 'package:booknest_app/view/payment_checkout_page.dart';
 import 'package:booknest_app/view/review_page.dart';
+import 'package:booknest_app/view/user_profile_page_booking_history.dart';
 import 'package:booknest_app/view/user_profile_page_helps_supports.dart';
 import 'package:booknest_app/view/user_profile_page_infomation.dart';
 import 'package:flutter/material.dart';
@@ -116,8 +117,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: 'Thanh Toán & Hoàn Tiền',
                     ),
                   ),
-                  ProfileDetailCard(
-                    title: 'Lịch Sử Đặt Phòng',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookingHistoryPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Lịch Sử Đặt Phòng',
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {

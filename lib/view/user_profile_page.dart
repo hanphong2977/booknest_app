@@ -6,11 +6,9 @@ import 'package:booknest_app/view/user_profile_page_infomation.dart';
 import 'package:flutter/material.dart';
 
 class ProfileApp extends StatelessWidget {
-  const ProfileApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ProfilePage(),
     );
@@ -18,8 +16,6 @@ class ProfileApp extends StatelessWidget {
 }
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
-
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -29,8 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tài Khoản'),
-        backgroundColor: const Color(0xFF60A5FA),
+        //title: const Text('Profile'),
+        backgroundColor: Color(0xFF60A5FA),
         elevation: 0,
         centerTitle: true,
         titleTextStyle: const TextStyle(
@@ -42,113 +38,131 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-          // Header
-          Container(
-          width: double.infinity,
-          color: const Color(0xFF60A5FA),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              CircleAvatar(
-                radius: 50,
-                child: ClipOval(
-                  child: Image.asset(
-                    'assets/images/avatar_male_image.png',
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                    errorBuilder: (BuildContext context, Object exception,
-                        StackTrace? stackTrace) {
-                      return Image.asset(
-                        'assets/images/avatar_image.png',
-                        width: 200,
-                        height: 200,
+            // Header
+            Container(
+              width: double.infinity,
+              color: Color(0xFF60A5FA),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  CircleAvatar(
+                    radius: 50,
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/images/avatar_male_image.png',
+                        width: 100,
+                        height: 100,
                         fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Image.asset(
+                            'assets/images/avatar_image.png',
+                            width: 200,
+                            height: 200,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "John Doe",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    "johndoe@example.com",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            // Profile Details
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfilePageInformation()),
                       );
                     },
+                    child: ProfileDetailCard(
+                      title: 'Thông Tin Cá Nhân',
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentCheckoutPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Thanh Toán & Hoàn Tiền',
+                    ),
+                  ),
+                  ProfileDetailCard(
+                    title: 'Lịch Sử Đặt Phòng',
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HelpSupportPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Giúp Đỡ & Câu Hỏi',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Đăng Xuất',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ReviewPage()),
+                      );
+                    },
+                    child: ProfileDetailCard(
+                      title: 'Tạm thời bỏ Review ở đây nhá',
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 10),
-              const Text(
-                "John Doe",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 5),
-              const Text(
-                "johndoe@example.com",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white70,
-                ),
-              ),
-              const SizedBox(height: 10),
-            ],
-          ),
-        ),
-        const SizedBox(height: 10),
-        // Profile Details
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-              children: [
-              GestureDetector(
-              onTap: () {
-        Navigator.push(
-        context,
-        MaterialPageRoute(
-        builder: (context) =>
-        const ProfilePageInformation()),
-        );
-        },
-          child: const ProfileDetailCard(
-            title: 'Thông Tin Cá Nhân',
-          ),
-        ),
+            ),
+            const SizedBox(height: 10),
+            // Buttons
 
-        const ProfileDetailCard(
-          title: 'Lịch Sử Đặt Phòng',
+            const SizedBox(height: 20),
+          ],
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const HelpSupportPage()),
-            );
-          },
-          child: const ProfileDetailCard(
-            title: 'Giúp Đỡ & Câu Hỏi',
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const LoginPage()),
-            );
-          },
-          child: const ProfileDetailCard(
-            title: 'Đăng Xuất',
-          ),
-        ),
-      ],
-    ),
-    ),
-    const SizedBox(height: 10),
-    // Buttons
-
-    const SizedBox(height: 20),
-    ],
-    )
-    ,
-    )
-    ,
+      ),
     );
   }
 }
@@ -165,7 +179,7 @@ class ProfileDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
             color: Colors.grey, // Màu gạch dưới

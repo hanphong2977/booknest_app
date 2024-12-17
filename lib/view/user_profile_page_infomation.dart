@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 
 class ProfilePageInformation extends StatefulWidget {
+  const ProfilePageInformation({super.key});
+
   @override
   State<ProfilePageInformation> createState() => _ProfilePageInformationState();
 }
@@ -11,7 +13,7 @@ class _ProfilePageInformationState extends State<ProfilePageInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Thông tin cá nhân'),
+        title: const Text('Thông Tin Cá Nhân'),
         backgroundColor:const Color(0xFF60A5FA),
         elevation: 0,
         centerTitle: true,
@@ -27,10 +29,10 @@ class _ProfilePageInformationState extends State<ProfilePageInformation> {
             // Header
             Container(
               width: double.infinity,
-              color: Color(0xFF60A5FA),
+              color: const Color(0xFF60A5FA),
               child: Column(
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   CircleAvatar(
                     radius: 50,
                     child: ClipOval(
@@ -51,8 +53,8 @@ class _ProfilePageInformationState extends State<ProfilePageInformation> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Row(
+                  const SizedBox(height: 10),
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
@@ -70,13 +72,13 @@ class _ProfilePageInformationState extends State<ProfilePageInformation> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                 ],
               ),
             ),
             const SizedBox(height: 10),
             // Profile Details
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Column(
                 children: [

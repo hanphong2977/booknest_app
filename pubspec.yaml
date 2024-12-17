@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   carousel_slider: ^5.0.0
+  intl: ^0.18.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -65,9 +66,4 @@ flutter:
     - assets/images/forgot_password_page_img.png
     - assets/images/register_page_img.png
     - assets/images/avatar_male_image.png
-    - assets/images/google_pay.png
-    - assets/images/visa.png
-    - assets/images/mastercard.png
-    - assets/images/paytm.png
-    - assets/images/confirmation_image.png
-    - assets/images/avatar_image.png
+    - assets/images/placeholder_image.png

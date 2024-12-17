@@ -1,3 +1,4 @@
+import 'package:booknest_app/view/hotel_description_page.dart';
 import 'package:flutter/material.dart';
 
 class AllHotelsPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _AllHotelsPage extends State<AllHotelsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Khách Sạn'),
-        backgroundColor: Color(0xFF60A5FA),
+        backgroundColor: const Color(0xFF60A5FA),
         elevation: 0,
         centerTitle: true,
         titleTextStyle: const TextStyle(
@@ -188,7 +189,12 @@ class _AllHotelsPage extends State<AllHotelsPage> {
                               ),
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => HotelDescriptionPage()),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF60A5FA),
                                 shape: RoundedRectangleBorder(

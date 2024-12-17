@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HelpSupportPage extends StatefulWidget {
+  const HelpSupportPage({super.key});
+
   @override
-  _HelpSupportPageState createState() => _HelpSupportPageState();
+  State<HelpSupportPage> createState() => _HelpSupportPageState();
 }
 
 class _HelpSupportPageState extends State<HelpSupportPage> with SingleTickerProviderStateMixin {
@@ -24,11 +26,16 @@ class _HelpSupportPageState extends State<HelpSupportPage> with SingleTickerProv
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Các câu hỏi thường gặp'),
+        title: const Text('Các Câu Hỏi Thường Gặp'),
+        centerTitle: true,
+        // backgroundColor: const Color(0xFF60A5FA),
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
-          tabs: [
+          indicatorColor: const Color(0xFF60A5FA),
+          labelColor: const Color(0xFF60A5FA),
+          unselectedLabelColor: Colors.grey,
+          tabs: const [
             Tab(text: 'Lưu trú', icon: Icon(Icons.hotel)),
             Tab(text: 'Thuê xe', icon: Icon(Icons.directions_car)),
             Tab(text: 'Chuyến bay', icon: Icon(Icons.flight)),
@@ -42,11 +49,11 @@ class _HelpSupportPageState extends State<HelpSupportPage> with SingleTickerProv
         controller: _tabController,
         children: [
           buildFaqList(),
-          Center(child: Text('Thuê xe')),
-          Center(child: Text('Chuyến bay')),
-          Center(child: Text('Taxi sân bay')),
-          Center(child: Text('Insurance')),
-          Center(child: Text('Khác')),
+          const Center(child: Text('Thuê xe')),
+          const Center(child: Text('Chuyến bay')),
+          const Center(child: Text('Taxi sân bay')),
+          const Center(child: Text('Insurance')),
+          const Center(child: Text('Khác')),
         ],
       ),
     );

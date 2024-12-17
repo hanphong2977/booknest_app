@@ -2,6 +2,8 @@ import 'package:booknest_app/view/home_page.dart';
 import 'package:booknest_app/view/user_profile_page.dart';
 import 'package:flutter/material.dart';
 
+import 'favourite_page.dart';
+
 class ViewPage extends StatefulWidget {
   const ViewPage({super.key});
 
@@ -14,7 +16,7 @@ class _ViewPage extends State<ViewPage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
-    const Center(child: Text("Bookmark Page")), // Placeholder cho trang Bookmark
+    const FavouritePage(),
     const ProfileApp(),
   ];
 
@@ -39,11 +41,11 @@ class _ViewPage extends State<ViewPage> {
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark_border), // Không chỉ định màu cố định
+              icon: Icon(Icons.bookmark), // Không chỉ định màu cố định
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), // Không chỉ định màu cố định
+              icon: Icon(Icons.person), // Không chỉ định màu cố định
               label: "",
             ),
           ],

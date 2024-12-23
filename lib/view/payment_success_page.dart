@@ -6,7 +6,7 @@ class BookingConfirmationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Booking Confirmation'),
+        title: const Text('Booking Confirmation'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -16,26 +16,26 @@ class BookingConfirmationPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/confirmation_image.png', width: 200),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Booking Confirmed!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Thank you for your booking.',
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
-                minimumSize: Size(200, 50),
+                minimumSize: const Size(200, 50),
               ),
               onPressed: () {
                 // Navigate to home or another screen
               },
-              child: Text('Continue'),
+              child: const Text('Continue'),
             ),
           ],
         ),

@@ -12,13 +12,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (_) => UserProvider(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          fontFamily: 'Itim', // Tên đã khai báo trong pubspec.yaml
+          textTheme: const TextTheme(
+              bodyLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+              bodySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+          ),
+        ),
+        home: ViewPage(),
       ),
-      home: const ViewPage(),
     );
   }
 }

@@ -6,15 +6,6 @@ import 'package:booknest_app/view/user_profile_page_helps_supports.dart';
 import 'package:booknest_app/view/user_profile_page_infomation.dart';
 import 'package:flutter/material.dart';
 
-class ProfileApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProfilePage(),
-    );
-  }
-}
 
 class ProfilePage extends StatefulWidget {
   @override

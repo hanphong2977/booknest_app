@@ -17,7 +17,7 @@ class _ViewPage extends State<ViewPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const FavouritePage(),
-    ProfileApp(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -29,6 +29,9 @@ class _ViewPage extends State<ViewPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Itim', // Đặt font mặc định
+      ),
       home: Scaffold(
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),

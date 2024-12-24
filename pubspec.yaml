@@ -67,3 +67,8 @@ flutter:
     - assets/images/register_page_img.png
     - assets/images/avatar_male_image.png
     - assets/images/placeholder_image.png
+    - assets/images/booknest_logo.png
+  fonts:
+    - family: Itim
+      fonts:
+      - asset: assets/fonts/Itim-Regular.ttf

@@ -79,7 +79,7 @@ class _HelpSupportPageState extends State<HelpSupportPage> with SingleTickerProv
   Widget buildFaqItem(String title) {
     return ListTile(
       title: Text(title),
-      trailing: Icon(Icons.arrow_forward),
+      trailing: const Icon(Icons.arrow_forward),
       onTap: () {
         // Handle item tap
       },

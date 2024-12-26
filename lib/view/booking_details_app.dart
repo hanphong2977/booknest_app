@@ -1,64 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:booknest_app/provider/booking_provider.dart';
+import 'payment_checkout_page.dart';
 import 'package:flutter/services.dart';
-
-
-class BookingDetailsApp extends StatelessWidget {
-  const BookingDetailsApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BookingDetailsPage(),
-    );
-  }
-}
-
-class BookingDetailsPage extends StatefulWidget {
+import 'package:booknest_app/view/People_Selector_model.dart';
+import 'package:booknest_app/view/RoomSelectorModal.dart';
+class BookingDetailsPage extends StatelessWidget {
   const BookingDetailsPage({super.key});
 
   @override
-  State<BookingDetailsPage> createState() => _BookingDetailsPageState();
-}
-
-class _BookingDetailsPageState extends State<BookingDetailsPage> {
-  // Controllers
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController vehicleController = TextEditingController();
-  final TextEditingController timeController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
-
-  DateTime? _selectedDate;
-  TimeOfDay? _selectedTime;
-
-  // Chọn ngày
-  Future<void> _pickDate() async {
-    final pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-    if (pickedDate != null) {
-      setState(() => _selectedDate = pickedDate);
-    }
-  }
-
-  // Chọn thời gian
-  Future<void> _pickTime() async {
-    final pickedTime = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    if (pickedTime != null) {
-      setState(() => _selectedTime = pickedTime);
-      timeController.text = pickedTime.format(context);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final bookingProvider = Provider.of<BookingProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booking Details'),
@@ -71,15 +24,25 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              BookingInputCard(
+              buildBookingInputCard(
+                context,
                 icon: Icons.person,
                 title: 'Name',
-                controller: nameController,
+                onChanged: (value) {
+                  final nameWithoutNumbers = value.replaceAll(RegExp(r'[0-9]'), '');
+                  if (nameWithoutNumbers != value) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Name cannot contain numbers')),
+                    );
+                  }
+                  Provider.of<BookingProvider>(context, listen: false).setName(nameWithoutNumbers);
+                },
               ),
-              BookingInputCard(
+              buildBookingInputCard(
+                context,
                 icon: Icons.phone,
                 title: 'Phone',
-                controller: phoneController,
+                onChanged: bookingProvider.setPhone,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 keyboardType: TextInputType.phone,
               ),
@@ -87,37 +50,91 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
                 child: ListTile(
                   leading: const Icon(Icons.calendar_today, color: Colors.blue),
                   title: const Text('Booking Date'),
-                  subtitle: Text(
-                    _selectedDate == null
-                        ? 'Select a date'
-                        : "${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}",
-                  ),
-                  onTap: _pickDate,
+                  subtitle: Text(bookingProvider.formattedDate),
+                  onTap: () async {
+                    final pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                    );
+                    if (pickedDate != null) {
+                      if (pickedDate.isBefore(DateTime.now())) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Booking Date cannot be in the past!'),
+                          ),
+                        );
+                      } else {
+                        bookingProvider.setSelectedDate(pickedDate);
+                      }
+                    }
+                  },
                 ),
               ),
               Card(
                 child: ListTile(
-                  leading: const Icon(Icons.access_time, color: Colors.blue),
-                  title: const Text('Time'),
-                  subtitle: Text(timeController.text.isEmpty
-                      ? 'Select time'
-                      : timeController.text),
-                  onTap: _pickTime,
+                  leading: const Icon(Icons.calendar_today_outlined, color: Colors.blue),
+                  title: const Text('Check-Out Date'),
+                  subtitle: Text(bookingProvider.formattedCheckOutDate),
+                  onTap: () async {
+                    final pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: bookingProvider.selectedDate ?? DateTime.now(),
+                      firstDate: bookingProvider.selectedDate ?? DateTime.now(),
+                      lastDate: DateTime(2100),
+                    );
+                    if (pickedDate != null) {
+                      if (pickedDate.isBefore(bookingProvider.selectedDate!)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Check-out date must be later than booking date'),
+                          ),
+                        );
+                      } else {
+                        bookingProvider.setSelectedCheckOutDate(pickedDate);
+                      }
+                    }
+                  },
                 ),
               ),
-              BookingInputCard(
-                icon: Icons.directions_car,
-                title: 'Vehicle',
-                controller: vehicleController,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
-                ],
-                keyboardType: TextInputType.text,
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.people, color: Colors.blue),
+                  title: const Text('No. of People'),
+                  subtitle: Text(
+                    '${bookingProvider.adults + bookingProvider.teens + bookingProvider.children} People',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) {
+                        return const PeopleSelectorModel();
+                      },
+                    );
+                  },
+                ),
               ),
-              BookingInputCard(
-                icon: Icons.location_on,
-                title: 'Location',
-                controller: locationController,
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.room, color: Colors.blue),
+                  title: const Text('No. of Rooms'),
+                  subtitle: Text(
+                    '${bookingProvider.totalRoomCount} Room(s)',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) {
+                        return const RoomSelectorModal(); // No need to pass bookingProvider
+                      },
+                    );
+                  },
+                ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -126,13 +143,12 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
                   minimumSize: const Size(200, 50),
                 ),
                 onPressed: () {
-                  // Debug output
-                  print('Name: ${nameController.text}');
-                  print('Phone: ${phoneController.text}');
-                  print('Vehicle: ${vehicleController.text}');
-                  print('Date: $_selectedDate');
-                  print('Time: $_selectedTime');
-                  print('Location: ${locationController.text}');
+                  if (validateBooking(context, bookingProvider)) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const PaymentCheckoutPage()),
+                    );
+                  }
                 },
                 child: const Text(
                   'Confirm Booking',
@@ -145,44 +161,61 @@ class _BookingDetailsPageState extends State<BookingDetailsPage> {
       ),
     );
   }
-}
 
-class BookingInputCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final TextEditingController controller;
-  final List<TextInputFormatter>? inputFormatters;
-  final TextInputType? keyboardType;
-
-  const BookingInputCard({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.controller,
-    this.inputFormatters,
-    this.keyboardType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  // Helper for input card
+  Widget buildBookingInputCard(
+      BuildContext context, {
+        required IconData icon,
+        required String title,
+        required Function(String) onChanged,
+        List<TextInputFormatter>? inputFormatters,
+        TextInputType? keyboardType,
+      }) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: Icon(icon, size: 28, color: Colors.blueAccent),
+        leading: Icon(icon, color: Colors.blue),
         title: TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: "Enter $title",
-            border: InputBorder.none,
-          ),
-          inputFormatters: inputFormatters,
+          decoration: InputDecoration(labelText: title),
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
+          onChanged: onChanged,
         ),
       ),
     );
   }
+
+  // Validation
+  bool validateBooking(BuildContext context, BookingProvider bookingProvider) {
+    if (bookingProvider.selectedCheckOutDate == null ||
+        bookingProvider.selectedCheckOutDate!.isBefore(bookingProvider.selectedDate!)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Check-out date must be later than booking date'),
+        ),
+      );
+      return false;
+    }
+
+    if (bookingProvider.numberOfPeople <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Number of People cannot be less than 1'),
+        ),
+      );
+      return false;
+    }
+
+    if (bookingProvider.roomCount <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Room count cannot be less than 1'),
+        ),
+      );
+      return false;
+    }
+
+    return true;
+  }
 }
+
+

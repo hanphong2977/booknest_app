@@ -17,7 +17,7 @@ class _ViewPage extends State<ViewPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const FavouritePage(),
-    ProfileApp(),
+    const ProfileApp(),
   ];
 
   void _onItemTapped(int index) {

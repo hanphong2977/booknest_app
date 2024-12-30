@@ -192,7 +192,7 @@ class _AllHotelsPage extends State<AllHotelsPage> {
                               onPressed: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => HotelDescriptionPage()),
+                                  MaterialPageRoute(builder: (context) => const HotelDescriptionPage()),
                                 );
                               },
                               style: ElevatedButton.styleFrom(

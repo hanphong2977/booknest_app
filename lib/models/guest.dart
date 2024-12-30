@@ -1,36 +1,68 @@
 class Guest {
-  int? id; // Primary key
-  String name;
-  String email;
-  String phone;
-  String user_name;
-  String password;
-  DateTime ts_created;
-  DateTime ts_updated;
+  int? _id; // Primary key
+  String _name;
+  String _email;
+  String _phone;
+  String _userName;
+  String _password;
+  DateTime _tsCreated;
+  DateTime _tsUpdated;
 
   // Constructor
   Guest({
-    this.id,
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.user_name,
-    required this.password,
-    required this.ts_created,
-    required this.ts_updated,
-  });
+    int? id,
+    required String name,
+    required String email,
+    required String phone,
+    required String userName,
+    required String password,
+    required DateTime tsCreated,
+    required DateTime tsUpdated,
+  })  : _id = id,
+        _name = name,
+        _email = email,
+        _phone = phone,
+        _userName = userName,
+        _password = password,
+        _tsCreated = tsCreated,
+        _tsUpdated = tsUpdated;
+
+  // Getters and Setters
+  int? get id => _id;
+  set id(int? value) => _id = value;
+
+  String get name => _name;
+  set name(String value) => _name = value;
+
+  String get email => _email;
+  set email(String value) => _email = value;
+
+  String get phone => _phone;
+  set phone(String value) => _phone = value;
+
+  String get userName => _userName;
+  set userName(String value) => _userName = value;
+
+  String get password => _password;
+  set password(String value) => _password = value;
+
+  DateTime get tsCreated => _tsCreated;
+  set tsCreated(DateTime value) => _tsCreated = value;
+
+  DateTime get tsUpdated => _tsUpdated;
+  set tsUpdated(DateTime value) => _tsUpdated = value;
 
   // Convert Guest object to a Map (for SQLite insert)
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'user_name': user_name,
-      'password': password,
-      'ts_created': ts_created.toIso8601String(),
-      'ts_updated': ts_updated.toIso8601String(),
+      'id': _id,
+      'name': _name,
+      'email': _email,
+      'phone': _phone,
+      'user_name': _userName,
+      'password': _password,
+      'ts_created': _tsCreated.toIso8601String(),
+      'ts_updated': _tsUpdated.toIso8601String(),
     };
   }
 
@@ -41,10 +73,10 @@ class Guest {
       name: map['name'],
       email: map['email'],
       phone: map['phone'],
-      user_name: map['user_name'],
+      userName: map['user_name'],
       password: map['password'],
-      ts_created: DateTime.parse(map['ts_created']),
-      ts_updated: DateTime.parse(map['ts_updated']),
+      tsCreated: DateTime.parse(map['ts_created']),
+      tsUpdated: DateTime.parse(map['ts_updated']),
     );
   }
 }

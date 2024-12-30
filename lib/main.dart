@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booknest_app/view/booking_details_app.dart';
 import 'package:booknest_app/provider/booking_provider.dart';
+import 'package:booknest_app/provider/payment_provider.dart';
+import 'package:booknest_app/view/payment_checkout_page.dart';
 
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-    create: (_) => BookingProvider(),
-    child: MyApp(),
-  ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => BookingProvider()),
+        ChangeNotifierProvider(create: (_) => PaymentProvider()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 

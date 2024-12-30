@@ -5,12 +5,13 @@ import 'payment_checkout_page.dart';
 import 'package:flutter/services.dart';
 import 'package:booknest_app/view/People_Selector_model.dart';
 import 'package:booknest_app/view/RoomSelectorModal.dart';
+
 class BookingDetailsPage extends StatelessWidget {
   const BookingDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bookingProvider = Provider.of<BookingProvider>(context);
+    final bookingProvider = Provider.of<BookingProvider>(context, listen: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -130,10 +131,22 @@ class BookingDetailsPage extends StatelessWidget {
                       context: context,
                       isScrollControlled: true,
                       builder: (BuildContext context) {
-                        return const RoomSelectorModal(); // No need to pass bookingProvider
+                        return const RoomSelectorModal();
                       },
                     );
                   },
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Thẻ hiển thị tổng số tiền
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.attach_money, color: Colors.green),
+                  title: const Text('Total Amount'),
+                  subtitle: Text(
+                    '\$${bookingProvider.calculateTotalAmount().toStringAsFixed(2)}',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -217,5 +230,3 @@ class BookingDetailsPage extends StatelessWidget {
     return true;
   }
 }
-
-

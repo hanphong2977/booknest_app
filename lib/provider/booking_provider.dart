@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class BookingProvider extends ChangeNotifier {
   String? name;
@@ -12,12 +13,22 @@ class BookingProvider extends ChangeNotifier {
   DateTime? selectedDate;
   DateTime? selectedCheckOutDate;
 
+  // Giá phòng
+  final Map<String, double> roomPrices = {
+    'Single Deluxe Room': 500000,
+    'Double Deluxe Room': 1000000,
+    'Extra Bed': 100000, // Giá cố định, không tính ngày
+    'Premium Suite': 500000, // Giá cố định, không tính ngày
+  };
+
+  // Loại phòng và số lượng
   Map<String, int> roomTypes = {
     'Single Deluxe Room': 0,
     'Double Deluxe Room': 0,
     'Extra Bed': 0,
     'Premium Suite': 0,
   };
+
   // Getters
   int get adults => _adults;
   int get teens => _teens;
@@ -83,15 +94,18 @@ class BookingProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   void setRoomCount(int count) {
     _roomCount = count;
-    notifyListeners();  // This triggers a rebuild for any listeners
+    notifyListeners();
   }
+
   void updateRoomCount() {
     int totalPeople = _adults + _teens + _children;
     _roomCount = (totalPeople / 4).ceil();
     notifyListeners();
   }
+
   // Increment room count
   void incrementRoomCount(String roomType) {
     roomTypes[roomType] = (roomTypes[roomType] ?? 0) + 1;
@@ -110,5 +124,29 @@ class BookingProvider extends ChangeNotifier {
   int get totalRoomCount {
     return roomTypes.values.reduce((a, b) => a + b);
   }
-}
 
+  // Calculate total amount
+  // Calculate total amount
+  double calculateTotalAmount() {
+    if (selectedDate == null || selectedCheckOutDate == null) return 0.0;
+
+    int daysBooked = selectedCheckOutDate!.difference(selectedDate!).inDays;
+    daysBooked = max(daysBooked, 1); // Ensure at least 1 day is counted
+
+    double totalAmount = 0.0;
+
+    // Calculate cost for each room type based on rental days
+    totalAmount += (roomTypes['Single Deluxe Room'] ?? 0) * roomPrices['Single Deluxe Room']! * daysBooked;
+    totalAmount += (roomTypes['Double Deluxe Room'] ?? 0) * roomPrices['Double Deluxe Room']! * daysBooked;
+
+    // Calculate fixed cost for room types not dependent on rental days
+    totalAmount += (roomTypes['Extra Bed'] ?? 0) * roomPrices['Extra Bed']!;
+    totalAmount += (roomTypes['Premium Suite'] ?? 0) * roomPrices['Premium Suite']!;
+
+    return totalAmount;
+  }
+
+
+
+
+}

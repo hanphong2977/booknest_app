@@ -1,4 +1,8 @@
+import 'package:booknest_app/provider/auth_provider.dart';
+import 'package:booknest_app/view/reset_pasword_page.dart';
+import 'package:booknest_app/view/verify_code_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -12,6 +16,7 @@ class _ForgotPasswordPage extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Forgot Password'),
@@ -62,8 +67,25 @@ class _ForgotPasswordPage extends State<ForgotPasswordPage> {
             const SizedBox(height: 24),
             // Nút Gửi yêu cầu đặt lại mật khẩu
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // Xử lý logic gửi yêu cầu đặt lại mật khẩu tại đây
+                final success =
+                    await authProvider.resetPassword( _emailController.text);
+                if (success) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Password reset link sent")),
+                  );
+                  // Chuyển sang trang ResetPasswordPage
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => VerifyCodePage(email: _emailController.text,)),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Email not found")),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF60A5FA),

@@ -15,9 +15,9 @@ class _StartPage extends State<StartPage> {
   late Timer _timer;
 
   final List<String> _images = [
+    'assets/images/booknest_logo.png',
     'assets/images/start_page_img_1.png',
     'assets/images/start_page_img_2.png',
-    'assets/images/start_page_img_3.png',
   ];
 
   final List<String> _descriptions = [
@@ -76,9 +76,12 @@ class _StartPage extends State<StartPage> {
                       child: SizedBox(
                         height: 240,
                         width: 240,
-                        child: Image.asset(
-                          _images[index],
-                          // fit: BoxFit.contain,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          // Bo góc 20px
+                          child: Image.asset(
+                            _images[index],
+                          ),
                         ),
                       ),
                     ),
@@ -119,8 +122,10 @@ class _StartPage extends State<StartPage> {
           const SizedBox(height: 16),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF60A5FA), // Màu nút (mã hex 60A5FA)
-              minimumSize: const Size(280, 40), // Kích thước nút
+              backgroundColor: const Color(0xFF60A5FA),
+              // Màu nút (mã hex 60A5FA)
+              minimumSize: const Size(280, 40),
+              // Kích thước nút
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8), // Góc bo tròn
               ),

@@ -6,7 +6,19 @@ import 'package:flutter/services.dart';
 import 'package:booknest_app/view/People_Selector_model.dart';
 import 'package:booknest_app/view/RoomSelectorModal.dart';
 
-class BookingDetailsPage extends StatelessWidget {
+class BookingDetailsApp extends StatelessWidget {
+  const BookingDetailsApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: BookingDetailsPage(),
+    );
+  }
+}
+
+class BookingDetailsPage extends StatefulWidget {
   const BookingDetailsPage({super.key});
 
   @override

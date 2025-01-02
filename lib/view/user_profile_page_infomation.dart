@@ -13,6 +13,7 @@ class _ProfilePageInformationState extends State<ProfilePageInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text('Thông Tin Cá Nhân'),
         backgroundColor:const Color(0xFF60A5FA),
         elevation: 0,

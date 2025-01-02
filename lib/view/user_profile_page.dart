@@ -1,3 +1,4 @@
+import 'package:booknest_app/provider/auth_provider.dart';
 import 'package:booknest_app/view/login_page.dart';
 import 'package:booknest_app/view/payment_checkout_page.dart';
 import 'package:booknest_app/view/review_page.dart';
@@ -5,18 +6,7 @@ import 'package:booknest_app/view/user_profile_page_booking_history.dart';
 import 'package:booknest_app/view/user_profile_page_helps_supports.dart';
 import 'package:booknest_app/view/user_profile_page_infomation.dart';
 import 'package:flutter/material.dart';
-
-class ProfileApp extends StatelessWidget {
-  const ProfileApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProfilePage(),
-    );
-  }
-}
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -102,7 +92,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ProfilePageInformation()),
+                            builder: (context) =>
+                                const ProfilePageInformation()),
                       );
                     },
                     child: const ProfileDetailCard(
@@ -146,8 +137,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      // Đăng xuất
+                      Provider.of<AuthProvider>(context, listen: false).logout();
+
+                      // Điều hướng về màn hình đăng nhập
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const LoginPage()),
                       );
@@ -160,7 +155,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ReviewPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const ReviewPage()),
                       );
                     },
                     child: const ProfileDetailCard(

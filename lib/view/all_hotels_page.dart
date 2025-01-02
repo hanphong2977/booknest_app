@@ -15,7 +15,8 @@ class _AllHotelsPage extends State<AllHotelsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Khách Sạn'),
+        title: const Text('Khách Sạn',style: TextStyle(fontFamily: 'Itim')),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: const Color(0xFF60A5FA),
         elevation: 0,
         centerTitle: true,

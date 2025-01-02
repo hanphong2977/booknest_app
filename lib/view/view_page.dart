@@ -20,7 +20,7 @@ class _ViewPage extends State<ViewPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const FavouritePage(),
-    const ProfileApp(),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -39,6 +39,7 @@ class _ViewPage extends State<ViewPage> {
       return const LoginPage();
     }
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Itim'),
       home: Scaffold(
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),

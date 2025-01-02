@@ -76,3 +76,8 @@ flutter:
     - assets/images/visa.png
     - assets/images/mastercard.png
     - assets/images/paytm.png
+    - assets/images/booknest_logo.png
+  fonts:
+      - family: Itim
+        fonts:
+          - asset: assets/fonts/Itim-Regular.ttf

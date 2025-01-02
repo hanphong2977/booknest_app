@@ -69,7 +69,7 @@ class _HomePage extends State<HomePage> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text("Trang Chủ"),
+      title: const Text("Trang Chủ",style: TextStyle(fontFamily: 'Itim'),),
       backgroundColor: const Color(0xFF60A5FA),
       elevation: 0,
       centerTitle: true,

@@ -1,5 +1,4 @@
 import 'package:booknest_app/provider/auth_provider.dart';
-import 'package:booknest_app/view/home_page.dart';
 import 'package:booknest_app/view/view_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -152,7 +151,7 @@ class _LoginPage extends State<LoginPage> {
                       // Điều hướng đến trang chính nếu đăng nhập thành công
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => ViewPage()),
+                        MaterialPageRoute(builder: (context) => const ViewPage()),
                         (route) => false,
                       );
                     } else {

@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ReviewPage extends StatefulWidget {
+  const ReviewPage({super.key});
+
   @override
-  _ReviewPageState createState() => _ReviewPageState();
+  State<ReviewPage> createState() => _ReviewPageState();
 }
 
 class _ReviewPageState extends State<ReviewPage> {
@@ -12,7 +13,7 @@ class _ReviewPageState extends State<ReviewPage> {
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: Colors.white,
-        title: Text('Hotel NYC', style: TextStyle(color: Colors.black)),
+        title: const Text('Hotel NYC', style: TextStyle(color: Colors.black)),
         elevation: 0,
       ),
       body: Column(
@@ -38,8 +39,8 @@ class _ReviewPageState extends State<ReviewPage> {
                                     child: Row(
                                       children: [
                                         Text('${5 - index}',
-                                            style: TextStyle(fontSize: 10)),
-                                        SizedBox(width: 5),
+                                            style: const TextStyle(fontSize: 10)),
+                                        const SizedBox(width: 5),
                                         Expanded(
                                           child: LinearProgressIndicator(
                                             value: [
@@ -49,7 +50,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                               0.1,
                                               0.05
                                             ][index],
-                                            color: Color(0xFF60A5FA),
+                                            color: const Color(0xFF60A5FA),
                                             backgroundColor: Colors.grey[300],
                                           ),
                                         ),
@@ -93,12 +94,12 @@ class _ReviewPageState extends State<ReviewPage> {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF60A5FA),
+                backgroundColor: const Color(0xFF60A5FA),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: SizedBox(
+              child: const SizedBox(
                 width: double.infinity,
                 child: Center(
                   child: Text('Write Review', style: TextStyle(fontSize: 16)),
@@ -124,7 +125,7 @@ class _ReviewPageState extends State<ReviewPage> {
                 backgroundColor: Colors.grey[300],
                 child: ClipOval(
                   child: Image.asset(
-                    'asset/images/avatar_male_image.png',
+                    'assets/images/avatar_male_image.png',
                     fit: BoxFit.cover,
                     width: 40,
                     height: 40,
@@ -139,11 +140,11 @@ class _ReviewPageState extends State<ReviewPage> {
                   ),
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
                   Row(
                     children: List.generate(5, (index) {
                       return Icon(
@@ -157,9 +158,9 @@ class _ReviewPageState extends State<ReviewPage> {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(comment),
-          Divider(),
+          const Divider(),
         ],
       ),
     );

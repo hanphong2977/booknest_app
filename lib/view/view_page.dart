@@ -1,6 +1,9 @@
+import 'package:booknest_app/provider/auth_provider.dart';
 import 'package:booknest_app/view/home_page.dart';
+import 'package:booknest_app/view/login_page.dart';
 import 'package:booknest_app/view/user_profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'favourite_page.dart';
 
@@ -17,7 +20,7 @@ class _ViewPage extends State<ViewPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const FavouritePage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -28,10 +31,15 @@ class _ViewPage extends State<ViewPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Lấy trạng thái đăng nhập từ AuthProvider
+    final isLoggedIn = Provider.of<AuthProvider>(context).isLoggedIn;
+
+    if (!isLoggedIn) {
+      // Nếu chưa đăng nhập, chuyển hướng về màn hình đăng nhập
+      return const LoginPage();
+    }
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Itim', // Đặt font mặc định
-      ),
+      theme: ThemeData(fontFamily: 'Itim'),
       home: Scaffold(
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
@@ -40,21 +48,21 @@ class _ViewPage extends State<ViewPage> {
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home), // Không chỉ định màu cố định ở đây
+              icon: Icon(Icons.home),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark), // Không chỉ định màu cố định
+              icon: Icon(Icons.bookmark),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person), // Không chỉ định màu cố định
+              icon: Icon(Icons.person),
               label: "",
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: const Color(0xFF60A5FA), // Màu khi được chọn
-          unselectedItemColor: Colors.grey, // Màu khi không được chọn
+          selectedItemColor: const Color(0xFF60A5FA),
+          unselectedItemColor: Colors.grey,
           onTap: _onItemTapped,
         ),
       ),

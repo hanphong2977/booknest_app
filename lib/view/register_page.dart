@@ -1,4 +1,7 @@
+import 'package:booknest_app/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/guest.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -8,12 +11,56 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPage extends State<RegisterPage> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isPasswordVisible = false; // Biến trạng thái
+  bool _isPasswordVisible = false;
+
+  void _register() async {
+    final name = _nameController.text.trim();
+    final username = _usernameController.text.trim();
+    final phone = _phoneController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (name.isEmpty ||
+        username.isEmpty ||
+        phone.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    final guest = Guest(
+      name: name,
+      userName: username,
+      phone: phone,
+      email: email,
+      password: password,
+      tsCreated: DateTime.now(),
+      tsUpdated: DateTime.now(),
+    );
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    final success = await authProvider.register(guest);
+
+    if (success) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Registration successful')),
+      );
+      Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Username already exists')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,105 +80,44 @@ class _RegisterPage extends State<RegisterPage> {
               height: 250,
             ),
             const SizedBox(height: 24),
-            // Trường Username
             TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                labelText: 'Username',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0), // Bo góc
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  // Bo góc khi không chọn
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0), // Bo góc khi chọn
-                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
-                ),
-                prefixIcon: const Icon(Icons.person),
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: 'Name',
+                prefixIcon: Icon(Icons.person),
               ),
             ),
             const SizedBox(height: 16),
-            // Trường Phone
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                labelText: 'Username',
+                prefixIcon: Icon(Icons.account_circle),
+              ),
+            ),
+            const SizedBox(height: 16),
             TextField(
               controller: _phoneController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Phone',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0), // Bo góc
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
-                ),
-                prefixIcon: const Icon(Icons.phone),
+                prefixIcon: Icon(Icons.phone),
               ),
               keyboardType: TextInputType.phone,
             ),
             const SizedBox(height: 16),
-            // Trường Email
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0), // Bo góc
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
-                ),
-                prefixIcon: const Icon(Icons.email),
+                prefixIcon: Icon(Icons.email),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 16),
-            // Trường Address
-            TextField(
-              controller: _addressController,
-              decoration: InputDecoration(
-                labelText: 'Address',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0), // Bo góc
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
-                ),
-                prefixIcon: const Icon(Icons.home),
-              ),
-            ),
-            const SizedBox(height: 16),
-            // Trường Password
             TextField(
               controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'Password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0), // Bo góc
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Color(0xFF60A5FA)),
-                ),
                 prefixIcon: const Icon(Icons.lock),
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -141,29 +127,23 @@ class _RegisterPage extends State<RegisterPage> {
                   ),
                   onPressed: () {
                     setState(() {
-                      _isPasswordVisible =
-                          !_isPasswordVisible; // Đổi trạng thái hiển thị
+                      _isPasswordVisible = !_isPasswordVisible;
                     });
                   },
                 ),
               ),
-              obscureText: !_isPasswordVisible, // Hiện/ẩn mật khẩu
+              obscureText: !_isPasswordVisible,
             ),
             const SizedBox(height: 24),
-            // Nút Register
             ElevatedButton(
-              onPressed: () {
-              //   sử lý logic đăng ký
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF60A5FA),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(Color(0xFF60A5FA)), // Màu nền nút
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),      // Màu chữ
               ),
-              child: const Text('Register', style: TextStyle(fontSize: 16)),
+              onPressed: _register,
+              child: const Text('Register'),
             ),
             const SizedBox(height: 16),
-            // Dòng Sign in
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -1,3 +1,4 @@
+import 'package:booknest_app/provider/auth_provider.dart';
 import 'package:booknest_app/view/login_page.dart';
 import 'package:booknest_app/view/payment_checkout_page.dart';
 import 'package:booknest_app/view/review_page.dart';
@@ -5,9 +6,11 @@ import 'package:booknest_app/view/user_profile_page_booking_history.dart';
 import 'package:booknest_app/view/user_profile_page_helps_supports.dart';
 import 'package:booknest_app/view/user_profile_page_infomation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -18,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         //title: const Text('Profile'),
-        backgroundColor: Color(0xFF60A5FA),
+        backgroundColor: const Color(0xFF60A5FA),
         elevation: 0,
         centerTitle: true,
         titleTextStyle: const TextStyle(
@@ -33,10 +36,10 @@ class _ProfilePageState extends State<ProfilePage> {
             // Header
             Container(
               width: double.infinity,
-              color: Color(0xFF60A5FA),
+              color: const Color(0xFF60A5FA),
               child: Column(
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   CircleAvatar(
                     radius: 50,
                     child: ClipOval(
@@ -57,8 +60,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     "John Doe",
                     style: TextStyle(
                       fontSize: 24,
@@ -66,22 +69,22 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Text(
+                  const SizedBox(height: 5),
+                  const Text(
                     "johndoe@example.com",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white70,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
             const SizedBox(height: 10),
             // Profile Details
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Column(
                 children: [
                   GestureDetector(
@@ -89,10 +92,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProfilePageInformation()),
+                            builder: (context) =>
+                                const ProfilePageInformation()),
                       );
                     },
-                    child: ProfileDetailCard(
+                    child: const ProfileDetailCard(
                       title: 'Thông Tin Cá Nhân',
                     ),
                   ),
@@ -101,10 +105,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PaymentCheckoutPage()),
+                            builder: (context) => const PaymentCheckoutPage()),
                       );
                     },
-                    child: ProfileDetailCard(
+                    child: const ProfileDetailCard(
                       title: 'Thanh Toán & Hoàn Tiền',
                     ),
                   ),
@@ -113,10 +117,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BookingHistoryPage()),
+                            builder: (context) => const BookingHistoryPage()),
                       );
                     },
-                    child: ProfileDetailCard(
+                    child: const ProfileDetailCard(
                       title: 'Lịch Sử Đặt Phòng',
                     ),
                   ),
@@ -125,21 +129,25 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HelpSupportPage()),
+                            builder: (context) => const HelpSupportPage()),
                       );
                     },
-                    child: ProfileDetailCard(
+                    child: const ProfileDetailCard(
                       title: 'Giúp Đỡ & Câu Hỏi',
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      // Đăng xuất
+                      Provider.of<AuthProvider>(context, listen: false).logout();
+
+                      // Điều hướng về màn hình đăng nhập
+                      Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
                       );
                     },
-                    child: ProfileDetailCard(
+                    child: const ProfileDetailCard(
                       title: 'Đăng Xuất',
                     ),
                   ),
@@ -147,10 +155,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ReviewPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const ReviewPage()),
                       );
                     },
-                    child: ProfileDetailCard(
+                    child: const ProfileDetailCard(
                       title: 'Tạm thời bỏ Review ở đây nhá',
                     ),
                   ),
@@ -180,7 +189,7 @@ class ProfileDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
             color: Colors.grey, // Màu gạch dưới

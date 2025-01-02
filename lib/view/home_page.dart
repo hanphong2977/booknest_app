@@ -69,8 +69,8 @@ class _HomePage extends State<HomePage> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text("Trang Chủ"),
-      backgroundColor: Color(0xFF60A5FA),
+      title: const Text("Trang Chủ",style: TextStyle(fontFamily: 'Itim'),),
+      backgroundColor: const Color(0xFF60A5FA),
       elevation: 0,
       centerTitle: true,
       titleTextStyle: const TextStyle(
@@ -359,7 +359,7 @@ class _HomePage extends State<HomePage> {
             // Navigate to AllHotelsPage on tap
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AllHotelsPage()),
+              MaterialPageRoute(builder: (context) => const AllHotelsPage()),
             );
           },
           child: const Text(

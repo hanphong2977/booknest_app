@@ -1,5 +1,7 @@
 import 'package:booknest_app/view/admin_dashboard_page.dart';
 import 'package:booknest_app/view/admin_user_management.dart';
+import 'package:booknest_app/view/hotel_management.dart';
+import 'package:booknest_app/view/room_management.dart';
 import 'package:flutter/material.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -11,7 +13,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     DashboardPage(),
-    UserManagement(),
+    UserManagementPage(),
+    HotelManagement(),
+
+    RoomManagementPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -55,6 +60,22 @@ class _AdminDashboardState extends State<AdminDashboard> {
               title: Text('Users'),
               onTap: () {
                 _onItemTapped(1);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.hotel),
+              title: Text('Hotel'),
+              onTap: () {
+                _onItemTapped(2);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.room),
+              title: Text('Room'),
+              onTap: () {
+                _onItemTapped(3);
                 Navigator.pop(context);
               },
             ),

@@ -1,4 +1,5 @@
 import 'package:booknest_app/provider/auth_provider.dart';
+import 'package:booknest_app/view/admin_page.dart';
 import 'package:booknest_app/view/view_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -138,7 +139,7 @@ class _LoginPage extends State<LoginPage> {
                     });
 
                     // Gọi hàm login từ AuthProvider
-                    final success = await authProvider.login(
+                    final role = await authProvider.login(
                       _usernameController.text.trim(),
                       _passwordController.text.trim(),
                     );
@@ -147,19 +148,26 @@ class _LoginPage extends State<LoginPage> {
                       _isLoading = false;
                     });
 
-                    if (success) {
-                      // Điều hướng đến trang chính nếu đăng nhập thành công
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ViewPage()),
-                        (route) => false,
-                      );
+                    if (role != null) {
+                      // Điều hướng đến trang tương ứng dựa vào vai trò
+                      if (role == 'admin') {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => AdminDashboard()), // Trang admin
+                              (route) => false,
+                        );
+                      } else if (role == 'user') {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ViewPage()), // Trang user
+                              (route) => false,
+                        );
+                      }
                     } else {
                       // Hiển thị thông báo lỗi nếu thất bại
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text(
-                              'Login failed! Please check your credentials.'),
+                          content: Text('Login failed! Please check your credentials.'),
                           backgroundColor: Colors.red,
                         ),
                       );

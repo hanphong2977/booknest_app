@@ -1,10 +1,10 @@
+import 'package:booknest_app/provider/Hotel_provider.dart';
 import 'package:booknest_app/provider/auth_provider.dart';
+import 'package:booknest_app/provider/room_provider.dart';
+import 'package:booknest_app/provider/user_provider.dart';
 import 'package:booknest_app/view/start_page.dart';
-import 'package:booknest_app/view/user_profile_page.dart';
-import 'package:booknest_app/view/view_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:booknest_app/view/booking_details_app.dart';
 import 'package:booknest_app/provider/booking_provider.dart';
 
 void main() {
@@ -16,6 +16,15 @@ void main() {
         ),
         ChangeNotifierProvider<BookingProvider>(
           create: (_) => BookingProvider(),
+        ),
+        ChangeNotifierProvider<HotelProvider>(
+          create: (_) => HotelProvider(),
+        ),
+        ChangeNotifierProvider<RoomProvider>(
+          create: (_) => RoomProvider(),
+        ),
+        ChangeNotifierProvider<UserProvider>(
+            create: (_) => UserProvider()
         ),
       ],
       child: const MyApp(),

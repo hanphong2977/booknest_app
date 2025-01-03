@@ -1,4 +1,5 @@
-import 'package:booknest_app/view/admin_user_management.dart';
+import 'package:booknest_app/view/hotel_management.dart';
+import 'package:booknest_app/view/room_management.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -14,22 +15,21 @@ class DashboardPage extends StatelessWidget {
               crossAxisSpacing: 10,
               mainAxisSpacing: 5,
               children: <Widget>[
-                _buildDashboardCard(context, 'Users', Icons.person, Colors.blue,
-                    UserManagement()),
-                _buildDashboardCard(context, 'Revenue', Icons.attach_money, Colors.green, UserManagement()),//Quản Lý User
-                _buildDashboardCard(context, 'Orders', Icons.shopping_cart, Colors.orange, UserManagement()),
-                _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.cyanAccent, UserManagement()),
-                _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.pinkAccent, UserManagement()),
-                _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.amberAccent, UserManagement()),
-                _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.indigoAccent, UserManagement()),
-                _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.orange, UserManagement()),
+                // _buildDashboardCard(context, 'Users', Icons.person, Colors.blue,UserManagement()),
+                _buildDashboardCard(context, 'Hotel', Icons.hotel, Colors.green, const HotelManagement()),//Quản Lý User
+                _buildDashboardCard(context, 'Room', Icons.room, Colors.orange, RoomManagementPage()),
+              //   _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.cyanAccent, UserManagement()),
+              //   _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.pinkAccent, UserManagement()),
+              //   _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.amberAccent, UserManagement()),
+              //   _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.indigoAccent, UserManagement()),
+              //   _buildDashboardCard(context, 'Analys', Icons.bar_chart, Colors.orange, UserManagement()),
               ],
             ),
           ),
           Container(
             height: 200,
             color: Colors.grey[200],
-            child: Center(
+            child: const Center(
               child: Text(
                 'vùng này làm gì đó',
                 style: TextStyle(fontSize: 24),
@@ -58,10 +58,10 @@ class DashboardPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(icon, size: 40, color: Colors.white),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 title,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
             ],
           ),

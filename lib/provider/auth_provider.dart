@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:booknest_app/database/db_helper.dart';
-import 'package:booknest_app/models/guest.dart';
+import 'package:booknest_app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -11,10 +11,10 @@ class AuthProvider with ChangeNotifier {
 
   bool get isLoggedIn => _isLoggedIn;
 
-  Guest? _currentUser;
+  User? _currentUser;
   String? _jwtToken;
 
-  Guest? get currentUser => _currentUser;
+  User? get currentUser => _currentUser;
 
   bool get isAuthenticated => _currentUser != null;
 
@@ -24,16 +24,16 @@ class AuthProvider with ChangeNotifier {
   final DBHelper _dbHelper = DBHelper();
 
   // Đăng ký người dùng
-  Future<bool> register(Guest guest) async {
+  Future<bool> register(User user) async {
     try {
-      final existingGuest = await _dbHelper.findGuestByUsername(guest.userName);
-      if (existingGuest != null) {
+      final existingUser = await _dbHelper.findUserByUsername(user.userName);
+      if (existingUser != null) {
         // Tên người dùng đã tồn tại
         return false;
       }
-      await _dbHelper.registerGuest(guest);
-      final dbGuest = await _dbHelper.findGuestByUsername(guest.userName);
-      await _dbHelper.assignRoleToGuest(dbGuest?.id!, 'guest');
+      await _dbHelper.registerUser(user);
+      final dbUser = await _dbHelper.findUserByUsername(user.userName);
+      await _dbHelper.assignRoleToUser(dbUser?.id!, 'user');
       return true;
     } catch (e) {
       print("Error during registration: $e");
@@ -42,26 +42,30 @@ class AuthProvider with ChangeNotifier {
   }
 
   // Đăng nhập người dùng
-  Future<bool> login(String username, String password) async {
+  Future<String?> login(String username, String password) async {
     try {
-      final guest =
-          await _dbHelper.findGuestByUsernameAndPassword(username, password);
-      if (guest != null) {
-        // final isAdmin = await _dbHelper.checkGuestRole(guest.id!, 'admin');
-        final isUser = await _dbHelper.checkGuestRole(guest.id!, 'guest');
-        if (isUser) {
+      final user =
+          await _dbHelper.findUserByUsernameAndPassword(username, password);
+      if (user != null) {
+        // Kiểm tra vai trò
+        final isAdmin = await _dbHelper.checkUserRole(user.id!, 'admin');
+        final isUser = await _dbHelper.checkUserRole(user.id!, 'user');
+
+        if (isAdmin || isUser) {
           // Tạo JWT token (giả lập)
           _jwtToken = "fake.jwt.token";
-          _currentUser = guest;
+          _currentUser = user;
           _isLoggedIn = true;
           notifyListeners();
-          return true;
+
+          // Trả về vai trò của người dùng
+          return isAdmin ? 'admin' : 'user';
         }
       }
-      return false;
+      return null;
     } catch (e) {
       print("Error during login: $e");
-      return false;
+      return null;
     }
   }
 
@@ -84,8 +88,8 @@ class AuthProvider with ChangeNotifier {
   Future<bool> resetPassword(String email) async {
     try {
       // Kiểm tra email trong cơ sở dữ liệu
-      final guest = await _dbHelper.findGuestByEmail(email);
-      if (guest != null) {
+      final user = await _dbHelper.findUserByEmail(email);
+      if (user != null) {
         // Tạo mã xác minh ngẫu nhiên
         String verificationCode = _generateVerificationCode();
 
@@ -149,13 +153,13 @@ class AuthProvider with ChangeNotifier {
   // Thêm phương thức cập nhật mật khẩu
   Future<bool> updatePassword(String email, String newPassword) async {
     try {
-      final guest = await _dbHelper.findGuestByEmail(email);
-      if (guest != null) {
+      final user = await _dbHelper.findUserByEmail(email);
+      if (user != null) {
         // Cập nhật mật khẩu mới cho người dùng trong cơ sở dữ liệu
-        guest.password = newPassword;
+        user.password = newPassword;
 
         // Cập nhật vào cơ sở dữ liệu
-        await _dbHelper.updateGuest(guest);
+        await _dbHelper.updateUser(user);
 
         print("Password updated successfully for $email.");
         return true;

@@ -3,6 +3,7 @@ class Room {
   String room_name;
   int hotel_id;
   int room_type_id;
+  String images;
   double current_price;
 
   // Constructor
@@ -11,6 +12,7 @@ class Room {
     required this.room_name,
     required this.hotel_id,
     required this.room_type_id,
+    required this.images,
     required this.current_price,
   });
 
@@ -21,6 +23,7 @@ class Room {
       'room_name': room_name,
       'hotel_id': hotel_id,
       'room_type_id': room_type_id,
+      'images': images,
       'current_price': current_price,
     };
   }
@@ -32,6 +35,7 @@ class Room {
       room_name: map['room_name'],
       hotel_id: map['hotel_id'],
       room_type_id: map['room_type_id'],
+      images: map['images'],
       current_price: map['current_price'].toDouble(),
     );
   }

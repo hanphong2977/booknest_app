@@ -1,7 +1,7 @@
+import 'package:booknest_app/models/user.dart';
 import 'package:booknest_app/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/guest.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -36,19 +36,20 @@ class _RegisterPage extends State<RegisterPage> {
       return;
     }
 
-    final guest = Guest(
+    final user = User(
       name: name,
       userName: username,
       phone: phone,
       email: email,
       password: password,
+      address: '',
       tsCreated: DateTime.now(),
       tsUpdated: DateTime.now(),
     );
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    final success = await authProvider.register(guest);
+    final success = await authProvider.register(user);
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
